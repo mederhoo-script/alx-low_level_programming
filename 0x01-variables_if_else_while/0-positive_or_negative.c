@@ -3,12 +3,14 @@
 #include <time.h>
 /* more headers goes there */
 
-/* betty style doc for function main goes there
-*this script check random number if it is
+/* betty style doc for function main goes there */
+/**
+*main - this script check random number if it is
 *positive
 *negative or zero
+* Return:  0.
 */
-int main(void)
+int main(void) /* main script here */
 {
 	int n;
 
