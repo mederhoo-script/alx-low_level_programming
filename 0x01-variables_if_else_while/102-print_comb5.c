@@ -11,28 +11,23 @@ int main(void)
 
 	for (i = 0; i <= 99; i++)
 	{
-		for (j = i; j <= 99; j++)
-		{
-			int i_first = i / 10;
-			int i_second = i % 10;
-			int j_first = j / 10;
-			int j_second = j % 10;
-
-			putchar('0' + i_first);
-			putchar('0' + i_second);
-			putchar(' ');
-			putchar('0' + j_first);
-			putchar('0' + j_second);
-
-			if (i != 99 || j != 99)
-			{
-				putchar(',');
-				putchar(' ');
-			}
-		}
+	for (j = i; j <= 99; j++)
+	{
+	if (i < j)
+	{
+	putchar((i / 10) + 48);
+	putchar((i % 10) + 48);
+	putchar(' ');
+	putchar((j / 10) + 48);
+	putchar((j % 10) + 48);
+	if (i != 98 || j != 99)
+	{
+	putchar(',');
+	putchar(' ');
 	}
-
+	}
+	}
+	}
 	putchar('\n');
-
 	return (0);
 }
