@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Read the new name from user input
+echo "Enter the new name:"
+read new_name
+
+# Use sed to insert the new name at line 6 of the file
+sed -i '6s/.*/'"$new_name"'/' main.h
+
+echo "New Prototype added successfully to line 6 of main.h."
