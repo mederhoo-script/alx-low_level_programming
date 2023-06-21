@@ -8,16 +8,11 @@
  */
 int print_last_digit(int n)
 {
-	int last_digit;
+	int last_digit = n % 10;
 
-	/* Get the absolute value of n */
-	if (n < 0)
-		n = -n;
+	if (last_digit < 0)
+		last_digit *= -1;
 
-	/* Extract the last digit */
-	last_digit = n % 10;
-
-	/* Print the last digit */
 	_putchar(last_digit + '0');
 
 	return (last_digit);
