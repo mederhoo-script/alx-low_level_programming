@@ -1,25 +1,21 @@
 #include "main.h"
-
 /**
- * string_toupper - Changes all lowercase letters
- * Mederhoo
- * @str: changed string
- * Return: A pointer 
- *
+ * string_toupper - change lowercase to uppercase
+ * @s:string
+ * Return:char
  */
-
-char *string_toupper(char *str)
-
+char *string_toupper(char *s)
 {
 
-	int m= 0;
+	int i;
 
-	while (str[m])
+i = 0;
+	while (*(s + i))
 	{
-	if (str[m] >= 'a' && str[m] <= 'z')
-	str[m] -= 32;
-m++;
+		if (*(s + i) >= 'a' && *(s + i) <= 'z')
+			*(s + i) -= 'a' - 'A';
+		i++;
 	}
-	return (str);
-
+	return (s);
 }
+/*Bwave ICT */
