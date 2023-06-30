@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "alias e='emacs'"
+echo "alias g='git-push.sh'"
