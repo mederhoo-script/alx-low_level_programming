@@ -1,0 +1,17 @@
+#include "main.h"
+
+/**
+ *malloc_checked - checked
+ *@b: for store
+ *Return: 0
+ *
+ */
+void *malloc_checked(unsigned int b)
+{
+	void *store;
+
+	store = malloc(b);
+	if (store == NULL)
+		exit(98);
+	return (store);
+}
