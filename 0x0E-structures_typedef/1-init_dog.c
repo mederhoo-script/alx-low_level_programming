@@ -1,14 +1,14 @@
-#include <stdio.h>
 #include "dog.h"
 
 /**
- *init_dog - dog class
- *@d: struct pointer
- *@name :name point to
- *@age: age of dog point to
- *@owner: - im tired of betty comment
+ * init_dog - initializes a struct
+ * @d: pointer to strut
+ * @name: point to the name of the dog
+ * @age: age of dog
+ * @owner: point to owner
+ *
+ * Return: 0
  */
-
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
 	if (d)
