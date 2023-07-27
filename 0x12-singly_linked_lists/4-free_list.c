@@ -10,14 +10,14 @@ void free_list(list_t *head)
 {
 	if (head)
 	{
-		// Recursively free the rest of the list
+      /* Recursively free the rest of the list */
 		free_list(head->next);
 
-		// Free the duplicated string (if it exists)
+  /* Free the duplicated string (if it exists) */
 		if (head->str)
 			free(head->str);
 
-		// Free the current node
+	   /* Free the current node */
 		free(head);
 	}
 }
