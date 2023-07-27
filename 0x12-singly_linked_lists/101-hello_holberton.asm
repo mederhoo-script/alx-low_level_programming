@@ -1,5 +1,5 @@
 	section .data
-	hello_msg db 'Hello, Holberton', 0
+	hello_msg db 'Hello, Holberton', 10, 0 ; 10 is the newline character, 0 is the null terminator
 	format db '%s', 0
 
 	section .text
