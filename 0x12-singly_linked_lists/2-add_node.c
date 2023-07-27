@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "lists.h"
 
 /**
@@ -9,14 +10,14 @@
  */
 int _strlen(const char *s)
 {
-	int length = 0; /* Variable to store the length of the string */
+	int i = 0;
 
 	/* Loop through the string until the null terminator is encountered */
-	while (s[length] != '\0')
+	while (s[i] != '\0')
 	{
-		length++;
+		i++;
 	}
-	return (length);
+	return (i);
 }
 
 /**
@@ -28,31 +29,27 @@ int _strlen(const char *s)
  */
 list_t *add_node(list_t **head, const char *str)
 {
-	/* Check if the input string is NULL */
-	if (str == NULL)
-		return (NULL);
-
-	list_t *add;
+	list_t *new_node;
 
 	/* Allocate memory for the new node */
-	add = malloc(sizeof(list_t));
-	if (add == NULL)
+	new_node = malloc(sizeof(list_t));
+	if (new_node == NULL)
 		return (NULL);
 
 	/* Duplicate the input string and store it in the new node */
-	add->str = strdup(str);
-	if (add->str == NULL)
+	new_node->str = strdup(str);
+	if (new_node->str == NULL)
 	{
-		free(add);
+		free(new_node);
 		return (NULL);
 	}
 
 	/* Calculate the length of the string and store it in the new node */
-	add->len = _strlen(str);
+	new_node->len = _strlen(str);
 
 	/* Insert the new node at the beginning of the list */
-	add->next = *head;
-	*head = add;
+	new_node->next = *head;
+	*head = new_node;
 
-	return (add);
+	return (new_node);
 }
