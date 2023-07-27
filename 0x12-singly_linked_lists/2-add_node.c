@@ -32,27 +32,27 @@ list_t *add_node(list_t **head, const char *str)
 	if (str == NULL)
 		return (NULL);
 
-	list_t *new_node; /* Pointer to the new node */
+	list_t *add;
 
 	/* Allocate memory for the new node */
-	new_node = malloc(sizeof(list_t));
-	if (new_node == NULL)
+	add = malloc(sizeof(list_t));
+	if (add == NULL)
 		return (NULL);
 
 	/* Duplicate the input string and store it in the new node */
-	new_node->str = strdup(str);
-	if (new_node->str == NULL)
+	add->str = strdup(str);
+	if (add->str == NULL)
 	{
-		free(new_node);
+		free(add);
 		return (NULL);
 	}
 
 	/* Calculate the length of the string and store it in the new node */
-	new_node->len = _strlen(str);
+	add->len = _strlen(str);
 
 	/* Insert the new node at the beginning of the list */
-	new_node->next = *head;
-	*head = new_node;
+	add->next = *head;
+	*head = add;
 
-	return (new_node);
+	return (add);
 }
