@@ -1,24 +1,21 @@
 	section .data
-	hello_msg db 'Hello, Holberton', 10, 0 ; 10 is the newline character, 0 is the null terminator
-	format db '%s', 0
+	hello_msg db 'Hello, Holberton', 0 ; C string needs 0
+	fmt db '%s', 10, 0		   ; The printf format, "\n", '0'
 
 	section .text
-	global main
+	global main		; the standard gcc entry point
 
 	extern printf
 
-main:
-	;;  Set up the stack frame (not necessary for this simple program)
-	push rbp
-	mov rbp, rsp
+main:				; the program label for the entry point
+	push rbp		; set up stack frame, must be aligned
 
-	;;  Call printf to print the message
-	lea rdi, [hello_msg] ; Load address of hello_msg into rdi (1st argument for printf)
-	lea rsi, [format]	; Load address of format string into rsi (2nd argument for printf)
+	mov rdi, fmt	; Load format string address into rdi (1st argument for printf)
+	mov rsi, hello_msg	; Load message string address into rsi (2nd argument for printf)
 	xor rax, rax	; Clear rax to indicate no floating-point arguments (printf uses xmm registers)
-	call printf	; Call the printf function
+	call printf	; Call C function printf
 
-	;;  Clean up and return
-	mov rsp, rbp
-	pop rbp
-	ret
+	pop rbp		; restore stack
+
+	mov rax, 0		; normal, no error, return value
+	ret			; return
