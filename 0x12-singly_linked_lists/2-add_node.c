@@ -10,14 +10,14 @@
  */
 int _strlen(const char *s)
 {
-	int i = 0;
+	int lents = 0;
 
 	/* Loop through the string until the null terminator is encountered */
-	while (s[i] != '\0')
+	while (s[lents] != '\0')
 	{
-		i++;
+		lents++;
 	}
-	return (i);
+	return (lents);
 }
 
 /**
