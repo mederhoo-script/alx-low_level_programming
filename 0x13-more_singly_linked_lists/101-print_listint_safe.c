@@ -3,56 +3,59 @@
 #include "lists.h"
 
 /**
- * free_listint_safe - Frees a listint_t linked list safely.
- * @h: Double pointer to the beginning of the list.
+ * find_loop - Helper function to find a loop in a linked list
+ * @head: Pointer to the head of the linked list
+ * Return: Pointer to the node causing the loop, or NULL if no loop
  */
-void free_listint_safe(listint_t **h)
+listint_t *find_loop(const listint_t *head)
 {
-	listint_t *current = *h;
-	listint_t *next;
+	listint_t *slow, *fast;
 
-	while (current)
+	slow = (listint_t *)head;
+	fast = (listint_t *)head;
+
+	while (fast != NULL && fast->next != NULL)
 	{
-		next = current->next;
-		free(current);
-		current = next;
-		*h = NULL;
-	}
-}
-
-/**
- * print_listint_safe - Prints a listint_t linked list.
- * @head: Pointer to the beginning of the list.
- * Return: The number of nodes in the list.
- */
-size_t print_listint_safe(const listint_t *head)
-{
-	size_t count = 0;
-	const listint_t *slow, *fast, *loop_start = NULL;
-
-	slow = head;
-	fast = head;
-
-	while (slow && fast && fast->next)
-	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		count++;
 		slow = slow->next;
 		fast = fast->next->next;
 
 		if (slow == fast)
 		{
-			loop_start = head;
-			while (loop_start != slow)
+			slow = (listint_t *)head;
+			while (slow != fast)
 			{
-				loop_start = loop_start->next;
 				slow = slow->next;
+				fast = fast->next;
 			}
-
-			printf("-> [%p] %d\n", (void *)loop_start, loop_start->n);
-			free_listint_safe(&loop_start);
-			return (count);
+			return (slow);
 		}
+	}
+
+	return (NULL);
+}
+
+/**
+ * print_listint_safe - Prints a listint_t linked list with loop handling
+ * @head: Pointer to the head of the linked list
+ * Return: Number of nodes in the list
+ */
+size_t print_listint_safe(const listint_t *head)
+{
+	size_t count = 0;
+	listint_t *loop_node = find_loop(head);
+
+	while (head != NULL)
+	{
+		printf("[%p] %d\n", (void *)head, head->n);
+		count++;
+
+		if (head == loop_node)
+		{
+			printf("-> [%p] %d\n", (void *)head, head->n);
+			exit(98);
+		}
+
+		head = head->next;
 	}
 
 	return (count);
