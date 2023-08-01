@@ -1,43 +1,44 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "lists.h"
+#include <stdlib.h>
 
 /**
- * main - Entry point for the program
+ * free_listint_safe - Frees a listint_t linked list.
+ * @h: Pointer to a pointer to the head of the list.
  *
- * Return: Always 0 (success)
+ * Return: The size of the list that was freed.
  */
-int main(void)
+size_t free_listint_safe(listint_t **h)
 {
-	listint_t *head;
-	listint_t *head2;
-	listint_t *node;
+	listint_t *current, *temp;
+	size_t count = 0;
 
-	head2 = NULL;
-	add_nodeint(&head2, 0);
-	add_nodeint(&head2, 1);
-	add_nodeint(&head2, 2);
-	add_nodeint(&head2, 3);
-	add_nodeint(&head2, 4);
-	add_nodeint(&head2, 98);
-	add_nodeint(&head2, 402);
-	add_nodeint(&head2, 1024);
-	print_listint_safe(head2);
+	if (h == NULL)
+		return (0);
 
-	head = NULL;
-	node = add_nodeint(&head, 0);
-	add_nodeint(&head, 1);
-	add_nodeint(&head, 2);
-	add_nodeint(&head, 3);
-	add_nodeint(&head, 4);
-	node->next = add_nodeint(&head, 98);
-	add_nodeint(&head, 402);
-	add_nodeint(&head, 1024);
-	print_listint_safe(head);
+	current = *h;
+	while (current != NULL)
+	{
+		count++;
+		/* Save the next pointer before freeing the current node */
+		temp = current->next;
 
-	free_listint_safe(&head2);
-	free_listint_safe(&head);
-4
-	return (0);
+		/* Set the current node's next to NULL to avoid issues with printing */
+		current->next = NULL;
+
+		/* Free the current node */
+		free(current);
+
+		/* Move to the next node */
+		current = temp;
+
+		/* If we encounter a node we've visited before, break the loop */
+		if (current == *h)
+		{
+			/* Set head to NULL to indicate that the list is freed */
+			*h = NULL;
+			break;
+		}
+	}
+
+	return (count);
 }
