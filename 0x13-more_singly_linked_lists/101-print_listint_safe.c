@@ -5,11 +5,11 @@
 /**
  * print_listint_safe - Prints a listint_t linked list.
  * @head: Pointer to the beginning of the list.
- * Return: The number of nodes in the list.
+ * Return: The number of nodes in the list, or -1 if a loop is detected.
  */
-size_t print_listint_safe(const listint_t *head)
+int print_listint_safe(const listint_t *head)
 {
-	size_t count = 0;
+	int count = 0;
 	const listint_t *slow, *fast;
 
 	slow = head;
@@ -27,16 +27,15 @@ size_t print_listint_safe(const listint_t *head)
 		{
 			/* Move slow to the head and find the start of the loop */
 			slow = head;
-			while (slow != fast)
+			while (1)
 			{
 				printf("[%p] %d\n", (void *)slow, slow->n);
 				count++;
+				if (slow == fast)
+					return (-1);
 				slow = slow->next;
 				fast = fast->next;
 			}
-			printf("[%p] %d\n", (void *)slow, slow->n);
-			count++;
-			exit(98);
 		}
 	}
 
