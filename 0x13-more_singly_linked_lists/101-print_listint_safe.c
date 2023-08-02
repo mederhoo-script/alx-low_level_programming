@@ -1,61 +1,38 @@
+#include "lists.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "lists.h"
 
 /**
- * find_loop - Helper function to find a loop in a linked list
- * @head: Pointer to the head of the linked list
- * Return: Pointer to the node causing the loop, or NULL if no loop
- */
-listint_t *find_loop(const listint_t *head)
-{
-	listint_t *slow, *fast;
-
-	slow = (listint_t *)head;
-	fast = (listint_t *)head;
-
-	while (fast != NULL && fast->next != NULL)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-
-		if (slow == fast)
-		{
-			slow = (listint_t *)head;
-			while (slow != fast)
-			{
-				slow = slow->next;
-				fast = fast->next;
-			}
-			return (slow);
-		}
-	}
-
-	return (NULL);
-}
-
-/**
- * print_listint_safe - Prints a listint_t linked list with loop handling
- * @head: Pointer to the head of the linked list
- * Return: Number of nodes in the list
+ * print_listint_safe - Prints a listint_t linked list.
+ * @head: Pointer to the head of the list.
+ *
+ * Return: The number of nodes in the list.
  */
 size_t print_listint_safe(const listint_t *head)
 {
+	const listint_t *current;
 	size_t count = 0;
-	listint_t *loop_node = find_loop(head);
 
-	while (head != NULL)
+	if (head == NULL)
 	{
-		printf("[%p] %d\n", (void *)head, head->n);
+		return (0);
+	}
+
+	current = head;
+	while (current != NULL)
+	{
 		count++;
+		printf("[%p] %d\n", (void *)current, current->n);
 
-		if (head == loop_node)
+		/* Move to the next node */
+		current = current->next;
+
+		/* If we encounter a node we've visited before, break the loop */
+		if (current == head)
 		{
-			printf("-> [%p] %d\n", (void *)head, head->n);
-			exit(98);
+			printf("-> [%p] %d\n", (void *)current, current->n);
+			break;
 		}
-
-		head = head->next;
 	}
 
 	return (count);
