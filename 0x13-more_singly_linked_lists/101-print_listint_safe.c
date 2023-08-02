@@ -1,10 +1,10 @@
 #include "lists.h"
 
 /**
- * free_listp - Frees a linked list.
- * @head: Pointer to the head of the list.
+ * free_listp - frees list
+ * @head: head list.
  *
- * Return: None.
+ * Return: void
  */
 void free_listp(listp_t **head)
 {
@@ -24,10 +24,10 @@ void free_listp(listp_t **head)
 }
 
 /**
- * print_listint_safe - Prints a linked list with handling circular lists.
- * @head: Pointer to the head of the list.
+ * print_listint_safe - prints a linked
+ * @head: head
  *
- * Return: The number of nodes in the list.
+ * Return: num
  */
 size_t print_listint_safe(const listint_t *head)
 {
