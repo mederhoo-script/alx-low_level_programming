@@ -1,44 +1,82 @@
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * free_listint_safe - Frees a listint_t linked list.
- * @h: Pointer to a pointer to the head of the list.
+ * free_listp2 - Frees a linked list.
+ * @head: Pointer to the head of a list.
+ *
+ * Description: This function frees a linked list by iterating through the list
+ *              and releasing the memory occupied by each node. It sets the head
+ *              of the list to NULL after freeing all nodes.
+ *
+ * Return: No return.
+ */
+void free_listp2(listp_t **head)
+{
+	listp_t *temp;
+	listp_t *curr;
+
+	if (head != NULL)
+	{
+		curr = *head;
+		while ((temp = curr) != NULL)
+		{
+			curr = curr->next;
+			free(temp);
+		}
+		*head = NULL;
+	}
+}
+
+/**
+ * free_listint_safe - Frees a linked list and handles circular lists.
+ * @h: Pointer to the head of a list.
+ *
+ * Description: This function frees a linked list, taking care of handling
+ *              circular lists. It uses a helper linked list to keep track
+ *              of the nodes that have been visited. If it encounters a node
+ *              that has been visited before, it identifies it as a circular
+ *              list and stops freeing the nodes to avoid an infinite loop.
  *
  * Return: The size of the list that was freed.
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *current, *temp;
-	size_t count = 0;
+	size_t nnodes = 0;
+	listp_t *hptr, *new, *add;
+	listint_t *curr;
 
-	if (h == NULL)
-		return (0);
-
-	current = *h;
-	while (current != NULL)
+	hptr = NULL;
+	while (*h != NULL)
 	{
-		count++;
-		/* Save the next pointer before freeing the current node */
-		temp = current->next;
+		new = malloc(sizeof(listp_t));
 
-		/* Set the current node's next to NULL to avoid issues with printing */
-		current->next = NULL;
+		if (new == NULL)
+			exit(98);
 
-		/* Free the current node */
-		free(current);
+		new->p = (void *)*h;
+		new->next = hptr;
+		hptr = new;
 
-		/* Move to the next node */
-		current = temp;
+		add = hptr;
 
-		/* If we encounter a node we've visited before, break the loop */
-		if (current == *h)
+		while (add->next != NULL)
 		{
-			/* Set head to NULL to indicate that the list is freed */
-			*h = NULL;
-			break;
+			add = add->next;
+			if (*h == add->p)
+			{
+				*h = NULL;
+				free_listp2(&hptr);
+				return (nnodes);
+			}
 		}
+
+		curr = *h;
+		*h = (*h)->next;
+		free(curr);
+		nnodes++;
 	}
 
-	return (count);
+	*h = NULL;
+	free_listp2(&hptr);
+	return (nnodes);
 }
