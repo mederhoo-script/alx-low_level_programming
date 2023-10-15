@@ -3,7 +3,7 @@
 #include "lists.h"
 
 /**
- * print_dlistint - function that print all data
+ * dlistint_len - function that return lenght
  * @h: head parameter
  *
  * Return: size_t
