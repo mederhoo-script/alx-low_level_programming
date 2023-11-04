@@ -7,6 +7,8 @@
  *
  * Return: A pointer creaor occurs.
  */
+unsigned long int i;
+
 hash_table_t *hash_table_create(unsigned long int size)
 {
 	hash_table_t *new_table = malloc(sizeof(hash_table_t));
@@ -23,7 +25,7 @@ hash_table_t *hash_table_create(unsigned long int size)
 		return (NULL);
 	}
 
-	for (unsigned long int i = 0; i < size; i++)
+	for(i = 0; i < size; i++)
 	{
 		new_table->array[i] = NULL;
 	}
