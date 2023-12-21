@@ -7,9 +7,12 @@ RM = rm -f
 all: $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 
+# Clean up command
 clean:
 	$(RM) *~ $(NAME)
 
+
+# clear object files
 oclean:
 	$(RM) $(OBJ)
 
