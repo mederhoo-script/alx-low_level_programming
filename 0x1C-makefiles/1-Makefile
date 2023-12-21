@@ -1,0 +1,7 @@
+# compiler command
+CC = gcc
+# source file
+SRC = main.c school.c
+#target: executable
+all: $(SRC)
+	$(CC) $(SRC) -o school

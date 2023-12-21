@@ -1,0 +1,11 @@
+# Compiler
+CC = gcc
+# Source files
+SRC = main.c school.c
+# Object files
+OBJ = $(SRC:.c=.o)
+# Executable name
+NAME = school
+# Target: dependency
+all: $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
